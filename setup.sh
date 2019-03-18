@@ -22,6 +22,9 @@ else
   echo "Environment variables successfully set"
 fi
 
+echo "Creating Nginx configuration"
+sudo /bin/bash ./nginx/set-servername.sh `hostname`
+
 echo "Creating the folders required for Jenkins"
 mkdir $JENKINS_DEFAULT_HOME
 chown -R 1001:1001 ./*
@@ -39,7 +42,7 @@ mkdir ./logs
 mkdir $NGINX_LOGS
 chown -R 1001:1001 $NGINX_LOGS
 
-echo "Generating a new Nginx certificate"
+echo "Preparing data for a new Nginx certificate"
 ./getssl/getssl -c `hostname`
 
 echo "ACL=(
@@ -48,6 +51,5 @@ echo "ACL=(
 'ssh:sshuserid@server5:/var/www/`hostname`/web/.well-known/acme-challenge'
 'ftp:ftpuserid:ftppassword:`hostname`:/web/.well-known/acme-challenge')" >> ./getssl/`hostname`/getssl.cfg
 
-sudo /bin/bash ./nginx/set-servername.sh `hostname`
 
 echo "Done"
