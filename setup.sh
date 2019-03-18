@@ -51,5 +51,4 @@ echo "ACL=(
 'ssh:sshuserid@server5:/var/www/`hostname`/web/.well-known/acme-challenge'
 'ftp:ftpuserid:ftppassword:`hostname`:/web/.well-known/acme-challenge')" >> ./getssl/`hostname`/getssl.cfg
 
-./getssl/getssl `hostname`
 echo "Done"

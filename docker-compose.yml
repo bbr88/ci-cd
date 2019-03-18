@@ -12,8 +12,8 @@ services:
       - '50000:50000'
       - '50022:50022'
     volumes:
-      - ${JENKINS_DEFAULT_HOME:/var/jenkins_home}:JENKINS_DEFAULT_HOME is not defined
-      - ${DOCKER_SOCK:/var/run/docker.sock}:DOCKER_SOCK is not defined
+      - ${JENKINS_DEFAULT_HOME:-JENKINS_DEFAULT_HOME is not defined}
+      - ${DOCKER_SOCK:-DOCKER_SOCK is not defined}
     environment:
       - UID_JENKINS=${UID_JENKINS:-1000}
       - GID_JENKINS=${GID_JENKINS:-1000}
@@ -29,7 +29,7 @@ services:
        - "8081:8081"
        - "8123:8123"  
     volumes:
-       - ${NEXUS_DATA:/nexus-data}:NEXUS_DATA is not defined
+       - ${NEXUS_DATA:-NEXUS_DATA}
     restart: always     
 
   sonarqube:
@@ -44,10 +44,10 @@ services:
       - "9000:9000"
       - "9092:9092"
     volumes:
-      - ${SONARQUBE_CONF:/opt/sonarqube/conf}:SONARQUBE_CONF is not defined
-      - ${SONARQUBE_DATA:/opt/sonarqube/data}:SONARQUBE_DATA is not defined
-      - ${SONARQUBE_EXT:/opt/sonarqube/extensions}:SONARQUBE_EXT is not defined
-      - ${SONARQUBE_PLUGINS:/opt/sonarqube/lib/bundled-plugins}:SONARQUBE_PLUGINS is not defined
+      - ${SONARQUBE_CONF:-SONARQUBE_CONF is not defined}
+      - ${SONARQUBE_DATA:-SONARQUBE_DATA is not defined}
+      - ${SONARQUBE_EXT:-SONARQUBE_EXT is not defined}
+      - ${SONARQUBE_PLUGINS:-SONARQUBE_PLUGINS is not defined}
     restart: always    
 
   sonar-postgresql:
@@ -58,8 +58,8 @@ services:
       - POSTGRES_PASSWORD=${SONARQUBE_JDBC_PASSWORD}:SONARQUBE_JDBC_PASSWORD is not defined
       - POSTGRES_DB=sonarube${SONARQUBE_JDBC_URL}:SONARQUBE_JDBC_URL is not defined
     volumes:
-      - ${SONARQUBE_PSQL:/var/lib/postgresql}:SONARQUBE_PSQL is not defined
-      - ${SONARQUBE_PSQL_DATA:/var/lib/postgresql/data}:SONARQUBE_PSQL_DATA is not defined 
+      - ${SONARQUBE_PSQL:-SONARQUBE_PSQL is not defined}
+      - ${SONARQUBE_PSQL_DATA:-SONARQUBE_PSQL_DATA is not defined} 
     ports:
       - "5432:5432"
     restart: always
@@ -72,8 +72,8 @@ services:
       - '443:443'
     volumes:
       - ${NGINX_DEFAULT_CONF:-./nginx/default.con}:/etc/nginx/conf.d/default.conf
-      - ${NGINX_LOGS:/var/log/nginx}:NGINX_LOGS is not defined
-      - ${NGINX_SSL_CERT:-./certs/self_signed_cert.pem}:/etc/nginx/ssl/server.crt # uncomment for SSL
-      - ${NGINX_SSL_KEY:-./certs/self_signed_key.pem}:/etc/nginx/ssl/server.key   # uncomment for SSL
-      - ${NGINX_WEB:/var/www/test.grancall.ru}:NGINX_WEB is not defined 
+      - ${NGINX_LOGS:-NGINX_LOGS is not defined}
+      - ${NGINX_SSL_CERT:-NGINX_SSL_CERT is not defined} 
+      - ${NGINX_SSL_KEY:-NGINX_SSL_KEY is not defined}
+      - ${NGINX_WEB:-NGINX_WEB is not defined} 
     restart: always
