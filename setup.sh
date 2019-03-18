@@ -2,6 +2,9 @@
 
 echo "Setting up the evnironment..."
 
+# Sanity check
+[ $(id -g) != "0" ] && die "Script must be run as root."
+
 NGINX_WEB=/var/www/`hostname`/web
 echo NGINX_WEB=$NGINX_WEB >> ./.env
 
