@@ -56,7 +56,7 @@ services:
     environment:
       - POSTGRES_USER=${SONARQUBE_JDBC_USERNAME:-SONARQUBE_JDBC_USERNAME is not defined}
       - POSTGRES_PASSWORD=${SONARQUBE_JDBC_PASSWORD:-SONARQUBE_JDBC_PASSWORD is not defined}
-      - POSTGRES_DB=sonarube${SONARQUBE_JDBC_URL:-SONARQUBE_JDBC_URL is not defined}
+      - POSTGRES_DB=${SONARQUBE_DB:-SONARQUBE_DB is not defined}
     volumes:
       - ${SONARQUBE_PSQL:-SONARQUBE_PSQL is not defined}:/var/lib/postgresql
       - ${SONARQUBE_PSQL_DATA:-SONARQUBE_PSQL_DATA is not defined}:/var/lib/postgresql/data 
