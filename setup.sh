@@ -48,4 +48,6 @@ echo "ACL=(
 'ssh:sshuserid@server5:/var/www/`hostname`/web/.well-known/acme-challenge'
 'ftp:ftpuserid:ftppassword:`hostname`:/web/.well-known/acme-challenge')" >> ./getssl/`hostname`/getssl.cfg
 
+sudo /bin/bash ./nginx/set-servername.sh `hostname`
+
 echo "Done"
