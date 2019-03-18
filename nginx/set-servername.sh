@@ -19,7 +19,7 @@ server {
         default_type "text/plain";
         root /var/www/$DOMAIN/;
   }
-  return 301 https://$host$request_uri;
+  return 301 https://\$host\$request_uri;
 }
 
 server {
@@ -32,10 +32,10 @@ server {
 
     location ^~ /jenkins/ {
 
-        proxy_set_header        Host $host:$server_port;
-        proxy_set_header        X-Real-IP $remote_addr;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwarded-Proto $scheme;
+        proxy_set_header        Host \$host:\$server_port;
+        proxy_set_header        X-Real-IP \$remote_addr;
+        proxy_set_header        X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwarded-Proto \$scheme;
 
         # Fix the "It appears that your reverse proxy set up is broken" error.
         proxy_pass              http://jenkins:8080/jenkins/;
@@ -52,10 +52,10 @@ server {
     }
 
     location ^~ /nexus/ {
-        proxy_set_header        Host $host:$server_port;
-        proxy_set_header        X-Real-IP $remote_addr;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwarded-Proto $scheme;
+        proxy_set_header        Host \$host:\$server_port;
+        proxy_set_header        X-Real-IP \$remote_addr;
+        proxy_set_header        X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwarded-Proto \$scheme;
 
         # Fix the "It appears that your reverse proxy set up is broken" error.
         proxy_pass              http://nexus:8081/nexus/;
@@ -65,10 +65,10 @@ server {
     }
 
     location ^~ /sonarqube/ {
-        proxy_set_header        Host $host:$server_port;
-        proxy_set_header        X-Real-IP $remote_addr;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwarded-Proto $scheme;
+        proxy_set_header        Host \$host:\$server_port;
+        proxy_set_header        X-Real-IP \$remote_addr;
+        proxy_set_header        X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwarded-Proto \$scheme;
 
         # Fix the "It appears that your reverse proxy set up is broken" error.
         proxy_pass              http://sonarqube:9000/sonarqube/;
