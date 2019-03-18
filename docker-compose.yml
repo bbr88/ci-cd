@@ -75,5 +75,5 @@ services:
       - ${NGINX_LOGS:-NGINX_LOGS is not defined}:/var/log/nginx
       - ${NGINX_SSL_CERT:-NGINX_SSL_CERT is not defined}:/etc/nginx/ssl/server.crt
       - ${NGINX_SSL_KEY:-NGINX_SSL_KEY is not defined}:/etc/nginx/ssl/server.key
-      - ${NGINX_WEB:-NGINX_WEB is not defined}:/var/www/${DOMAIN:-DOMAIN is not defined}
+      - ${NGINX_WEB:-NGINX_WEB is not defined}:/var/www/${CI_DOMAIN:-CI_DOMAIN is not defined}
     restart: always
