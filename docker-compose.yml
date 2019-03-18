@@ -24,7 +24,7 @@ services:
     image: sonatype/nexus3:latest
     container_name: nexus3
     environment:
-       - NEXUS_CONTEXT=${NEXUS_CONTEXT}:NEXUS_CONTEXT is not defined
+       - NEXUS_CONTEXT=${NEXUS_CONTEXT:-NEXUS_CONTEXT is not defined}
     ports:
        - "8081:8081"
        - "8123:8123"  
@@ -36,10 +36,10 @@ services:
     image: sonarqube:6.7.1
     restart: unless-stopped
     environment:
-      - SONARQUBE_JDBC_USERNAME=${SONARQUBE_JDBC_USERNAME}:SONARQUBE_JDBC_USERNAME is not defined
-      - SONARQUBE_JDBC_PASSWORD=${SONARQUBE_JDBC_PASSWORD}:SONARQUBE_JDBC_PASSWORD is not defined
-      - SONARQUBE_JDBC_URL=${SONARQUBE_JDBC_URL}:SONARQUBE_JDBC_URL is not defined
-    command: ${SONARQUBE_CONTEXT}:SONARQUBE_CONTEXT is not defined    
+      - SONARQUBE_JDBC_USERNAME=${SONARQUBE_JDBC_USERNAME:-SONARQUBE_JDBC_USERNAME is not defined}
+      - SONARQUBE_JDBC_PASSWORD=${SONARQUBE_JDBC_PASSWORD:-SONARQUBE_JDBC_PASSWORD is not defined}
+      - SONARQUBE_JDBC_URL=${SONARQUBE_JDBC_URL:-SONARQUBE_JDBC_URL is not defined}
+    command: ${SONARQUBE_CONTEXT:-SONARQUBE_CONTEXT is not defined} 
     ports:
       - "9000:9000"
       - "9092:9092"
@@ -54,9 +54,9 @@ services:
     image: postgres:10.1
     container_name: sonar-postgresql
     environment:
-      - POSTGRES_USER=${SONARQUBE_JDBC_USERNAME}:SONARQUBE_JDBC_USERNAME is not defined
-      - POSTGRES_PASSWORD=${SONARQUBE_JDBC_PASSWORD}:SONARQUBE_JDBC_PASSWORD is not defined
-      - POSTGRES_DB=sonarube${SONARQUBE_JDBC_URL}:SONARQUBE_JDBC_URL is not defined
+      - POSTGRES_USER=${SONARQUBE_JDBC_USERNAME:-SONARQUBE_JDBC_USERNAME is not defined}
+      - POSTGRES_PASSWORD=${SONARQUBE_JDBC_PASSWORD:-SONARQUBE_JDBC_PASSWORD is not defined}
+      - POSTGRES_DB=sonarube${SONARQUBE_JDBC_URL:-SONARQUBE_JDBC_URL is not defined}
     volumes:
       - ${SONARQUBE_PSQL:-SONARQUBE_PSQL is not defined}:/var/lib/postgresql
       - ${SONARQUBE_PSQL_DATA:-SONARQUBE_PSQL_DATA is not defined}:/var/lib/postgresql/data 
