@@ -8,6 +8,9 @@ echo "Setting up the evnironment..."
 NGINX_WEB=/var/www/`hostname`/web
 echo NGINX_WEB=$NGINX_WEB >> ./.env
 
+DOMAIN=`hostname`
+echo DOMAIN=$DOMAIN >> ./.env
+
 if [[ "$OSTYPE" == "linux-gnu" ]]; then export $(grep -v '^#' .env | xargs -d '\n') 
 elif [[ "$OSTYPE" == "darwin"* ]]; then export $(grep -v '^#' .env | xargs -0) 
 fi
