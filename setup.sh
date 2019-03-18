@@ -2,13 +2,7 @@
 
 echo "Setting up the evnironment..."
 
-NGINX_SSL_CERT=./getssl/`hostname`/`hostname`.crt
-NGINX_SSL_KEY=./getssl/`hostname`/`hostname`.key
 NGINX_WEB=/var/www/`hostname`/web
-
-
-echo NGINX_SSL_CERT=$NGINX_SSL_CERT >> ./.env
-echo NGINX_SSL_KEY=$NGINX_SSL_KEY >> ./.env
 echo NGINX_WEB=$NGINX_WEB >> ./.env
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then export $(grep -v '^#' .env | xargs -d '\n') 
