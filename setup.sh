@@ -5,6 +5,18 @@ echo "Setting up the evnironment..."
 # Sanity check
 [ $(id -g) != "0" ] && die "Script must be run as root."
 
+FULL_CERT=$1
+
+if [ -z "$FULL_CERT" ]
+then
+ echo "Full certificate will be acquired"
+ FULL_CERT=true
+else
+ echo "Fake certificate will be acquired"
+ FULL_CERT=false
+fi
+
+
 NGINX_WEB=/var/www/`hostname`/web
 echo NGINX_WEB=$NGINX_WEB >> ./.env
 
@@ -58,7 +70,12 @@ echo "ACL=('/var/www/`hostname`/web/.well-known/acme-challenge'
 'ssh:sshuserid@server5:/var/www/`hostname`/web/.well-known/acme-challenge'
 'ftp:ftpuserid:ftppassword:`hostname`:/web/.well-known/acme-challenge')" >> ./getssl/`hostname`/getssl.cfg
 
-echo "CA=\"https://acme-staging-v02.api.letsencrypt.org/directory\"" >> ./getssl/`hostname`/getssl.cfg
+if [ FULL_CERT ]
+then
+  echo "CA=\"https://acme-v01.api.letsencrypt.org\""
+else
+  echo "CA=\"https://acme-staging-v02.api.letsencrypt.org/directory\"" >> ./getssl/`hostname`/getssl.cfg
+fi
 
 sudo docker-compose -f ./docker-compose-cert.yml up -d
 
