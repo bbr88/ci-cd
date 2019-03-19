@@ -72,7 +72,7 @@ echo "ACL=('/var/www/`hostname`/web/.well-known/acme-challenge'
 
 if [ FULL_CERT ]
 then
-  echo "CA=\"https://acme-v01.api.letsencrypt.org\""
+  echo "CA=\"https://acme-v01.api.letsencrypt.org\"" >> ./getssl/`hostname`/getssl.cfg
 else
   echo "CA=\"https://acme-staging-v02.api.letsencrypt.org/directory\"" >> ./getssl/`hostname`/getssl.cfg
 fi
