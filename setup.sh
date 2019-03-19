@@ -2,10 +2,16 @@
 
 echo "Setting up the evnironment..."
 
+FULL_CERT=$1
+EMAIL=$2
+
 # Sanity check
 [ $(id -g) != "0" ] && die "Script must be run as root."
-
-FULL_CERT=$1
+if [ -z "$EMAIL" ] 
+then
+  echo "Email is required!"
+  exit 1;
+fi 
 
 if [ -z "$FULL_CERT" ]
 then
@@ -76,6 +82,8 @@ then
 else
   echo "CA=\"https://acme-staging-v02.api.letsencrypt.org/directory\"" >> ./getssl/`hostname`/getssl.cfg
 fi
+
+echo "ACCOUNT_EMAIL=\"$EMAIL\"" >> ./getssl/`hostname`/getssl.cfg
 
 sudo docker-compose -f ./docker-compose-cert.yml up -d
 
