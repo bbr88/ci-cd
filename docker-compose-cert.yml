@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - '80:80'
+    volumes:
+      - ${NGINX_DEFAULT_CERT_CONF:-./nginx/default-cert.conf}:/etc/nginx/conf.d/default.conf
+      - ${NGINX_LOGS:-NGINX_LOGS is not defined}:/var/log/nginx
+      - ${NGINX_WEB:-NGINX_WEB is not defined}:/var/www/${CI_DOMAIN:-CI_DOMAIN is not defined}
+    restart: always

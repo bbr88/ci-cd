@@ -27,6 +27,7 @@ fi
 
 echo "Creating Nginx configuration"
 sudo /bin/bash ./nginx/set-servername.sh `hostname`
+sudo /bin/bash ./nginx/set-servername-cert.sh `hostname`
 
 echo "Creating the folders required for Jenkins"
 mkdir $JENKINS_DEFAULT_HOME
@@ -58,5 +59,17 @@ echo "ACL=('/var/www/`hostname`/web/.well-known/acme-challenge'
 'ftp:ftpuserid:ftppassword:`hostname`:/web/.well-known/acme-challenge')" >> ./getssl/`hostname`/getssl.cfg
 
 echo "CA=\"https://acme-staging-v02.api.letsencrypt.org/directory\"" >> ./getssl/`hostname`/getssl.cfg
+
+sudo docker-compose -f ./docker-compose-cert.yml up -d
+
+echo "Waiting for Nginx to startup"
+sleep 15
+
+echo "Obtaining a new certificate"
+./getssl/getssl `hostname`
+
+sudo docker-compose -f ./docker-compose-cert.yml down
+
+sudo docker-compose up -d
 
 echo "Done"
