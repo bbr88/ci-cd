@@ -52,8 +52,7 @@ rm -fr ./getssl/`hostname`/getssl.cfg
 touch ./getssl/`hostname`/getssl.cfg
 chown 1001:1001 ./getssl/`hostname`/getssl.cfg
 
-echo "ACL=(
-'/var/www/`hostname`/web/.well-known/acme-challenge'
+echo "ACL=('/var/www/`hostname`/web/.well-known/acme-challenge'
 'ssh:server5:/var/www/`hostname`/web/.well-known/acme-challenge'
 'ssh:sshuserid@server5:/var/www/`hostname`/web/.well-known/acme-challenge'
 'ftp:ftpuserid:ftppassword:`hostname`:/web/.well-known/acme-challenge')" >> ./getssl/`hostname`/getssl.cfg
