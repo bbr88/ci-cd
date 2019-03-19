@@ -68,6 +68,12 @@ sleep 15
 echo "Obtaining a new certificate"
 ./getssl/getssl `hostname`
 
+if [ -f "/var/www/`hostname`/web/.well-known/acme-challenge/json was blank" ]; then
+    echo "Acme challenge not found! Trying to get a new challenge..."
+    ./getssl/getssl `hostname`
+fi
+
+
 sudo docker-compose -f ./docker-compose-cert.yml down
 
 sudo docker-compose up -d
