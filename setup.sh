@@ -57,6 +57,6 @@ echo "ACL=('/var/www/`hostname`/web/.well-known/acme-challenge'
 'ssh:sshuserid@server5:/var/www/`hostname`/web/.well-known/acme-challenge'
 'ftp:ftpuserid:ftppassword:`hostname`:/web/.well-known/acme-challenge')" >> ./getssl/`hostname`/getssl.cfg
 
-echo "CA=\"https://acme-staging-v02.api.letsencrypt.org/directory\"" >> ./getssl/`hostname`/getssl.cfg
+echo CA=\"https://acme-v01.api.letsencrypt.org\"" >> ./getssl/`hostname`/getssl.cfg
 
 echo "Done"
