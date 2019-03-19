@@ -65,7 +65,7 @@ mkdir $NGINX_LOGS
 chown -R 1001:1001 $NGINX_LOGS
 
 echo "Preparing data for a new Nginx certificate"
-./getssl/getssl -c `hostname` -w ./
+./getssl/getssl -c `hostname` -w ./getssl
 
 rm -fr ./getssl/`hostname`/getssl.cfg
 touch ./getssl/`hostname`/getssl.cfg
@@ -91,7 +91,7 @@ echo "Waiting for Nginx to startup"
 sleep 15
 
 echo "Obtaining a new certificate"
-./getssl/getssl -w ./ `hostname`
+./getssl/getssl -w ./getssl `hostname`
 
 if [ -f "/var/www/`hostname`/web/.well-known/acme-challenge/json was blank" ]; then
     echo "Acme challenge not found! Trying to get a new challenge..."
